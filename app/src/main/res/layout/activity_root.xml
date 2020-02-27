@@ -8,11 +8,13 @@
     tools:context=".ui.RootActivity">
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_houses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabMode="scrollable"/>
 
     <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_root"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
