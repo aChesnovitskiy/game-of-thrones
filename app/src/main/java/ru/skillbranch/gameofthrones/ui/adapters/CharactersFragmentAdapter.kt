@@ -14,7 +14,7 @@ class CharactersFragmentAdapter(fragmentActivity: FragmentActivity) : FragmentSt
     override fun createFragment(position: Int): Fragment {
         val fragment = CharactersFragment()
         fragment.arguments = Bundle().apply {
-            putInt("position", position)
+            putString("house", RootRepository.getHouses()[position])
         }
         return fragment
     }

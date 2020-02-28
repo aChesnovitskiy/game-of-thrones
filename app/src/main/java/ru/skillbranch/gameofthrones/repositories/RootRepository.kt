@@ -3,10 +3,12 @@ package ru.skillbranch.gameofthrones.repositories
 object RootRepository {
     private val houses = arrayOf("Stark", "Lannister", "Targaryen", "Baratheon", "Greyjoy", "Martel", "Tyrell")
     private var characters = mutableMapOf<String, List<Pair<String, String>>>()
+
     private val starks = listOf(
         "Stark 1" to "Starkers1",
         "Stark 2" to "Starkers2",
-        "Stark 3" to "Starkers3"
+        "Stark 3" to "Starkers3",
+        "Stark 4" to "Starkers4"
     )
     private val lannisters = listOf(
         "Lannister 1" to "Lannisterers1",
@@ -16,7 +18,9 @@ object RootRepository {
     private val targaryens = listOf(
         "Targaryen 1" to "Targaryeners1",
         "Targaryen 2" to "Targaryeners2",
-        "Targaryen 3" to "Targaryeners3"
+        "Targaryen 3" to "Targaryeners3",
+        "Targaryen 4" to "Targaryeners4",
+        "Targaryen 5" to "Targaryeners5"
     )
     private val baratheons = listOf(
         "Baratheon 1" to "Baratheoners1",
@@ -50,4 +54,6 @@ object RootRepository {
 
 
     fun getHouses() = houses
+
+    fun getCharacters(house: String?) = characters[house]
 }

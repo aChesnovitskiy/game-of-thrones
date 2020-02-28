@@ -3,16 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="@dimen/spacing_maximum_72">
 
     <ImageView
         android:id="@+id/iv_house_logo"
         android:layout_width="@dimen/image_normal_48"
         android:layout_height="@dimen/image_normal_48"
-        android:layout_margin="@dimen/spacing_normal_16"
+        android:layout_marginStart="@dimen/spacing_normal_16"
         android:src="@drawable/ic_block_black_24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/tv_character_name"
