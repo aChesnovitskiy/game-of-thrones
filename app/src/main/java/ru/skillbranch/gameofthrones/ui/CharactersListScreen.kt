@@ -8,10 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.page_characters.*
 import ru.skillbranch.gameofthrones.R
-import ru.skillbranch.gameofthrones.repositories.RootRepository
 import ru.skillbranch.gameofthrones.ui.adapters.CharactersAdapter
 
-class CharactersFragment: Fragment() {
+class CharactersListScreen: Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,10 +27,10 @@ class CharactersFragment: Fragment() {
         }
 
         arguments?.takeIf { it.containsKey("house") }?.apply {
-            val characters = RootRepository.getCharacters(getString("house"))
-            if (characters != null) {
-                charactersAdapter.updateData(characters)
-            }
+////            val characters = RootRepository.getCharacters(getString("house"))
+//            if (characters != null) {
+//                charactersAdapter.updateData(characters)
+//            }
         }
     }
 }
