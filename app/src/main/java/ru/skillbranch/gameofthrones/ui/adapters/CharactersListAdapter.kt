@@ -9,14 +9,8 @@ import kotlinx.android.synthetic.main.item_character.view.*
 import kotlinx.android.synthetic.main.page_characters.view.*
 import ru.skillbranch.gameofthrones.R
 
-class CharactersAdapter : RecyclerView.Adapter<PagerVH>() {
-//    private val colors = intArrayOf( TODO delete
-//        android.R.color.black,
-//        android.R.color.holo_red_light,
-//        android.R.color.holo_blue_dark,
-//        android.R.color.holo_purple
-//    )
-
+/* Handle RecyclerView with characters */
+class CharactersListAdapter : RecyclerView.Adapter<PagerVH>() {
     var characters = listOf<Pair<String, String>>()
 
     fun updateData(data: List<Pair<String, String>>) {
