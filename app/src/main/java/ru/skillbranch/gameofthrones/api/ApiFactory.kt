@@ -1,4 +1,4 @@
-package com.achesnovitskiy.empoyees.api
+package ru.skillbranch.gameofthrones.api
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.Retrofit
