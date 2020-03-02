@@ -6,8 +6,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_root.*
 import ru.skillbranch.gameofthrones.AppConfig.NEED_HOUSES
 import ru.skillbranch.gameofthrones.R
+import ru.skillbranch.gameofthrones.repositories.RootRepository
 import ru.skillbranch.gameofthrones.ui.adapters.CharactersListFragmentAdapter
-import ru.skillbranch.gameofthrones.utils.extensions.shortName
+import ru.skillbranch.gameofthrones.utils.extensions.toShortName
 
 class RootActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,19 +17,28 @@ class RootActivity : AppCompatActivity() {
 
         vp_root.adapter = CharactersListFragmentAdapter(this)
 
+        // TODO move functional of working with DB to the splash screen
+        RootRepository.getNeedHouseWithCharacters(*NEED_HOUSES) { needHouseWithCharacters ->
+            RootRepository.insertHouses(needHouseWithCharacters.map { needHouseWithCharacters.first }) {
+                RootRepository.insertCharacters(needHouseWithCharacters.map { it.second })
+
+
+            needHouseWithCharacters.map { it.first }
+                .also { RootRepository.insertHouses(it) {
+                        needHouseWithCharacters.map { it.second }
+                            .flatten()
+                            .also { RootRepository.insertCharacters(it)
+
+                            }
+                    }
+
+                }
+
+            }
+        }
+
         TabLayoutMediator(tl_houses, vp_root) { tab, position ->
-                        tab.text = NEED_HOUSES[position].shortName()
+                        tab.text = NEED_HOUSES[position].toShortName()
         }.attach()
-
-//        RootRepository.getNeedHouses(NEED_HOUSES[0], TODO delete
-//            NEED_HOUSES[1],
-//            NEED_HOUSES[2],
-//            NEED_HOUSES[3],
-//            NEED_HOUSES[4],
-//            NEED_HOUSES[5],
-//            NEED_HOUSES[6]
-//            ) {
-//            Toast.makeText(this, "${it.size}", Toast.LENGTH_LONG).show() }
-
     }
 }
