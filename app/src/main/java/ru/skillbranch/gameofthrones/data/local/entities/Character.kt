@@ -43,6 +43,6 @@ data class CharacterFull(
 
 data class RelativeCharacter(
     val id: String,
-    val name: String,
-    val house:String //rel
+    val name: String = "",
+    val house:String = "" //rel
 )

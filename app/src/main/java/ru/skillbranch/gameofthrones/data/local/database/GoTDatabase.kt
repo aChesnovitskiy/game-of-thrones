@@ -1,9 +1,10 @@
-package ru.skillbranch.gameofthrones.data.database
+package ru.skillbranch.gameofthrones.data.local.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import ru.skillbranch.gameofthrones.data.local.entities.Character
 import ru.skillbranch.gameofthrones.data.local.entities.House
 
@@ -12,6 +13,7 @@ import ru.skillbranch.gameofthrones.data.local.entities.House
     version = 1,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class GoTDatabase : RoomDatabase() {
     abstract val houseDao: HouseDao
     abstract val characterDao: CharacterDao

@@ -1,4 +1,4 @@
-package ru.skillbranch.gameofthrones.data.database
+package ru.skillbranch.gameofthrones.data.local.database
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 import ru.skillbranch.gameofthrones.App
 import ru.skillbranch.gameofthrones.api.ApiFactory
-import ru.skillbranch.gameofthrones.data.database.GoTDatabase
+import ru.skillbranch.gameofthrones.data.local.database.GoTDatabase
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterFull
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterItem
 import ru.skillbranch.gameofthrones.data.remote.res.CharacterRes

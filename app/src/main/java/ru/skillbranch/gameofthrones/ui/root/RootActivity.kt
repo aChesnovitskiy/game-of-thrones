@@ -19,26 +19,25 @@ class RootActivity : AppCompatActivity() {
 
         // TODO move functional of working with DB to the splash screen
         RootRepository.getNeedHouseWithCharacters(*NEED_HOUSES) { needHouseWithCharacters ->
-            RootRepository.insertHouses(needHouseWithCharacters.map { needHouseWithCharacters.first }) {
-                RootRepository.insertCharacters(needHouseWithCharacters.map { it.second })
-
-
-            needHouseWithCharacters.map { it.first }
-                .also { RootRepository.insertHouses(it) {
-                        needHouseWithCharacters.map { it.second }
-                            .flatten()
-                            .also { RootRepository.insertCharacters(it)
-
-                            }
-                    }
-
+            RootRepository.insertHouses(needHouseWithCharacters.map { it.first }) {
+                RootRepository.insertCharacters(needHouseWithCharacters.map { it.second }.flatten()) {
+                    TabLayoutMediator(tl_houses, vp_root) { tab, position ->
+                        tab.text = NEED_HOUSES[position].toShortName()
+                    }.attach()
                 }
-
             }
         }
-
-        TabLayoutMediator(tl_houses, vp_root) { tab, position ->
-                        tab.text = NEED_HOUSES[position].toShortName()
-        }.attach()
+//            needHouseWithCharacters.map { it.first }
+//                .also {
+//                    RootRepository.insertHouses(it) {
+//                        needHouseWithCharacters.map { it.second }
+//                            .flatten()
+//                            .also {
+//                                RootRepository.insertCharacters(it)
+//                            }
+//                    }
+//                }
+//        }
+//    }
     }
 }
