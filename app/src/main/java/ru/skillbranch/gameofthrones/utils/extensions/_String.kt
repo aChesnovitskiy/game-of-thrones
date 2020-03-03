@@ -5,13 +5,13 @@ import ru.skillbranch.gameofthrones.data.remote.res.HouseRes
 fun String.toShortName(): String = this.split(" ").dropLastUntil { it == "of" }.last()
 
 fun List<String>.mergeWithDots(): String {
-    var stringBuilder = StringBuilder()
+    val stringBuilder = StringBuilder()
 
     for (string in this) {
-        stringBuilder.append("$string • ")
+        if (string.isNotBlank()) stringBuilder.append("$string • ")
     }
 
-    stringBuilder.setLength(stringBuilder.length - 3)
+    if (stringBuilder.isNotBlank()) stringBuilder.setLength(stringBuilder.length - 3)
 
     return stringBuilder.toString()
 }

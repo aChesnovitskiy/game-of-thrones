@@ -192,23 +192,6 @@ object RootRepository {
      */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun findCharactersByHouseName(name: String, result: (characters: List<CharacterItem>) -> Unit) {
-        // TODO delete mock
-//        val starks = listOf(
-//            CharacterItem("1", "Stark", "Stark 1", listOf("Starker 1"), listOf("")),
-//            CharacterItem("2", "Stark", "Stark 2", listOf("Starker 2"), listOf("")),
-//            CharacterItem("3", "Stark", "Stark 3", listOf("Starker 3"), listOf(""))
-//            )
-//        val lannisters = listOf(
-//            CharacterItem("1", "Lannister", "Lannister 5", listOf("Lannisterer 5"), listOf("")),
-//            CharacterItem("2", "Lannister", "Lannister 6", listOf("Lannisterer 6"), listOf("")),
-//            CharacterItem("3", "Lannister", "Lannister 4", listOf("Lannisterer 4"), listOf("")),
-//            CharacterItem("4", "Lannister", "Lannister 7", listOf("Lannisterer 7"), listOf(""))
-//        )
-//        when (name) {
-//            "Stark" -> result(starks)
-//            "Lannister" -> result(lannisters)
-//            else -> result(listOf<CharacterItem>())
-//        }
         val disposable = characterDao!!.findCharactersByHouseName(name)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

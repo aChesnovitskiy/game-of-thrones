@@ -3,37 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/spacing_maximum_72">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iv_house_logo"
-        android:layout_width="@dimen/image_normal_48"
-        android:layout_height="@dimen/image_normal_48"
+        android:layout_width="@dimen/image_normal_40"
+        android:layout_height="@dimen/image_normal_40"
         android:layout_marginStart="@dimen/spacing_normal_16"
+        android:layout_marginTop="@dimen/spacing_normal_16"
         android:src="@drawable/ic_block_black_24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/tv_character_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_normal_16"
-        android:textColor="@android:color/black"
-        android:textStyle="bold"
+        android:textColor="@color/color_primary"
+        android:textSize="@dimen/font_normal_16"
         app:layout_constraintStart_toEndOf="@+id/iv_house_logo"
         app:layout_constraintTop_toTopOf="@+id/iv_house_logo"
         tools:text="Arya Stark" />
 
     <TextView
         android:id="@+id/tv_character_info"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_normal_16"
-        android:layout_marginTop="@dimen/spacing_tiny_4"
+        android:layout_marginTop="@dimen/spacing_small_8"
+        android:layout_marginBottom="@dimen/spacing_normal_16"
+        android:maxLines="2"
+        android:layout_marginEnd="@dimen/spacing_normal_16"
+        android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@+id/iv_house_logo"
         app:layout_constraintTop_toBottomOf="@+id/tv_character_name"
-        tools:text="Little girl, who will kill all her enemies" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Little girl, who will kill all her enemies Little girl, who will kill all her enemiesLittle girl, who will kill all her enemiesLittle girl, who will kill all her enemies" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

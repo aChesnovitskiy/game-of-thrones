@@ -40,11 +40,19 @@ class CharactersListAdapter : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.itemView.run {
         tv_character_name.text = characters[position].name
-        tv_character_info.text = characters[position].titles.mergeWithDots()
+        val list = getCharacterTitlesAndAliases(characters[position])
+        tv_character_info.text = list.mergeWithDots()
+        iv_house_logo.setImageDrawable(resources.getDrawable(R.drawable.baratheon_icon, context.theme))
 //        tv_title.text = "Item $position" TODO delete
 //        container.setBackgroundResource(colors[position])
     }
 
+    private fun getCharacterTitlesAndAliases(character: CharacterItem): MutableList<String> {
+        val result = mutableListOf<String>()
+        if (character.titles.isNotEmpty()) result.addAll(character.titles)
+        if (character.aliases.isNotEmpty()) result.addAll(character.aliases)
+        return result
+    }
 }
 
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
