@@ -9,7 +9,7 @@ import ru.skillbranch.gameofthrones.AppConfig.HOUSE
 import ru.skillbranch.gameofthrones.AppConfig.NEED_HOUSES
 import ru.skillbranch.gameofthrones.ui.root.CharactersListFragment
 
-/* Handle ViewPager2 fragments */
+/* Adapter for ViewPager2 fragments */
 class CharactersListFragmentAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int = NEED_HOUSES.size

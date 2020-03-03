@@ -23,23 +23,11 @@ class RootActivity : AppCompatActivity() {
             RootRepository.insertHouses(needHouseWithCharacters.map { it.first }) {
                 RootRepository.insertCharacters(needHouseWithCharacters.map { it.second }.flatten()) {
                     Log.d("My_", "Finish inserting data into DB")
-                    TabLayoutMediator(tl_houses, vp_root) { tab, position ->
-                        tab.text = NEED_HOUSES[position].toShortName()
-                    }.attach()
                 }
             }
         }
-//            needHouseWithCharacters.map { it.first }
-//                .also {
-//                    RootRepository.insertHouses(it) {
-//                        needHouseWithCharacters.map { it.second }
-//                            .flatten()
-//                            .also {
-//                                RootRepository.insertCharacters(it)
-//                            }
-//                    }
-//                }
-//        }
-//    }
+        TabLayoutMediator(tl_houses, vp_root) { tab, position ->
+            tab.text = NEED_HOUSES[position].toShortName()
+        }.attach()
     }
 }
