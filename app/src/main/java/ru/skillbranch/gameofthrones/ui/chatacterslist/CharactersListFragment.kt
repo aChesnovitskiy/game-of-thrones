@@ -62,7 +62,7 @@ class CharactersListFragment : Fragment() {
     }
 
     private fun initViews(house: String) {
-        charactersListAdapter = CharactersListAdapter(house)
+        charactersListAdapter = CharactersListAdapter()
         val customDivider = InsetDrawable(
             resources.getDrawable(R.drawable.divider, activity?.theme),
             requireContext().dpToPx(72).toInt(),

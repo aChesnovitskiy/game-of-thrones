@@ -12,9 +12,10 @@ import ru.skillbranch.gameofthrones.AppConfig.NEED_HOUSES
 import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterItem
 import ru.skillbranch.gameofthrones.utils.extensions.mergeWithDots
+import ru.skillbranch.gameofthrones.utils.extensions.toShortName
 
 /* Adapter for RecyclerView with characters */
-class CharactersListAdapter(val house: String) : RecyclerView.Adapter<ViewHolder>() {
+class CharactersListAdapter() : RecyclerView.Adapter<ViewHolder>() {
     var characters = listOf<CharacterItem>()
 
     fun updateData(data: List<CharacterItem>) {
@@ -45,7 +46,8 @@ class CharactersListAdapter(val house: String) : RecyclerView.Adapter<ViewHolder
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.itemView.run {
         val name = characters[position].name
         val info = getTitlesAndAliases(characters[position]).mergeWithDots()
-        val logo = getLogoByHouse(house, resources, context)
+        val logo = getLogoByHouse(characters[position].house, resources, context)
+
 
         tv_character_name.text = if (name.isNotEmpty()) name else
             context.getString(R.string.information_is_unknown)
@@ -63,13 +65,13 @@ class CharactersListAdapter(val house: String) : RecyclerView.Adapter<ViewHolder
 
     private fun getLogoByHouse(house: String, resources: Resources, context: Context) =
         when (house) {
-            NEED_HOUSES[0] -> resources.getDrawable(R.drawable.stark_icon, context.theme)
-            NEED_HOUSES[1] -> resources.getDrawable(R.drawable.lanister_icon, context.theme)
-            NEED_HOUSES[2] -> resources.getDrawable(R.drawable.targaryen_icon, context.theme)
-            NEED_HOUSES[3] -> resources.getDrawable(R.drawable.greyjoy_icon, context.theme)
-            NEED_HOUSES[4] -> resources.getDrawable(R.drawable.tyrel_icon, context.theme)
-            NEED_HOUSES[5] -> resources.getDrawable(R.drawable.baratheon_icon, context.theme)
-            NEED_HOUSES[6] -> resources.getDrawable(R.drawable.martel_icon, context.theme)
+            NEED_HOUSES[0].toShortName() -> resources.getDrawable(R.drawable.stark_icon, context.theme)
+            NEED_HOUSES[1].toShortName() -> resources.getDrawable(R.drawable.lanister_icon, context.theme)
+            NEED_HOUSES[2].toShortName() -> resources.getDrawable(R.drawable.targaryen_icon, context.theme)
+            NEED_HOUSES[3].toShortName() -> resources.getDrawable(R.drawable.baratheon_icon, context.theme)
+            NEED_HOUSES[4].toShortName() -> resources.getDrawable(R.drawable.greyjoy_icon, context.theme)
+            NEED_HOUSES[5].toShortName() -> resources.getDrawable(R.drawable.martel_icon, context.theme)
+            NEED_HOUSES[6].toShortName() -> resources.getDrawable(R.drawable.tyrel_icon, context.theme)
             else -> resources.getDrawable(R.drawable.ic_block_black_24dp, context.theme)
         }
 }

@@ -3,23 +3,21 @@ package ru.skillbranch.gameofthrones.ui.chatacterslist
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import androidx.appcompat.widget.SearchView
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.activity_characters_list.*
+import kotlinx.android.synthetic.main.screen_characters_list.*
 import ru.skillbranch.gameofthrones.AppConfig.NEED_HOUSES
 import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.repositories.RootRepository
 import ru.skillbranch.gameofthrones.ui.chatacterslist.adapters.CharactersListFragmentAdapter
 import ru.skillbranch.gameofthrones.utils.extensions.toShortName
-import ru.skillbranch.gameofthrones.viewmodels.CharacterListViewModel
 
 // TODO add comments ih whole project
 
-class CharactersListActivity : AppCompatActivity() {
+class CharactersListScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_characters_list)
+        setContentView(R.layout.screen_characters_list)
 
         initToolbar()
         initViews()
