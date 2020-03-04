@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Game of Thrones</string>
+    <string name="information_is_unknown">Information is unknown</string>
 </resources>

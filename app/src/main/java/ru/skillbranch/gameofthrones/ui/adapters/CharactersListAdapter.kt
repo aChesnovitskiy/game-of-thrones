@@ -1,17 +1,20 @@
 package ru.skillbranch.gameofthrones.ui.adapters
 
+import android.content.Context
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_character.view.*
+import ru.skillbranch.gameofthrones.AppConfig.NEED_HOUSES
 import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterItem
 import ru.skillbranch.gameofthrones.utils.extensions.mergeWithDots
 
 /* Adapter for RecyclerView with characters */
-class CharactersListAdapter : RecyclerView.Adapter<ViewHolder>() {
+class CharactersListAdapter(val house: String) : RecyclerView.Adapter<ViewHolder>() {
     var characters = listOf<CharacterItem>()
 
     fun updateData(data: List<CharacterItem>) {
@@ -39,20 +42,35 @@ class CharactersListAdapter : RecyclerView.Adapter<ViewHolder>() {
     override fun getItemCount(): Int = characters.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.itemView.run {
-        tv_character_name.text = characters[position].name
-        val list = getCharacterTitlesAndAliases(characters[position])
-        tv_character_info.text = list.mergeWithDots()
-        iv_house_logo.setImageDrawable(resources.getDrawable(R.drawable.baratheon_icon, context.theme))
-//        tv_title.text = "Item $position" TODO delete
-//        container.setBackgroundResource(colors[position])
+        val name = characters[position].name
+        val info = getTitlesAndAliases(characters[position]).mergeWithDots()
+        val logo = getLogoByHouse(house, resources, context)
+
+        tv_character_name.text = if (name.isNotEmpty()) name else
+            context.getString(R.string.information_is_unknown)
+        tv_character_info.text = if (info.isNotEmpty()) info else
+            context.getString(R.string.information_is_unknown)
+        iv_house_logo.setImageDrawable(logo)
     }
 
-    private fun getCharacterTitlesAndAliases(character: CharacterItem): MutableList<String> {
+    private fun getTitlesAndAliases(character: CharacterItem): MutableList<String> {
         val result = mutableListOf<String>()
         if (character.titles.isNotEmpty()) result.addAll(character.titles)
         if (character.aliases.isNotEmpty()) result.addAll(character.aliases)
         return result
     }
+
+    private fun getLogoByHouse(house: String, resources: Resources, context: Context) =
+        when (house) {
+            NEED_HOUSES[0] -> resources.getDrawable(R.drawable.stark_icon, context.theme)
+            NEED_HOUSES[1] -> resources.getDrawable(R.drawable.lanister_icon, context.theme)
+            NEED_HOUSES[2] -> resources.getDrawable(R.drawable.targaryen_icon, context.theme)
+            NEED_HOUSES[3] -> resources.getDrawable(R.drawable.greyjoy_icon, context.theme)
+            NEED_HOUSES[4] -> resources.getDrawable(R.drawable.tyrel_icon, context.theme)
+            NEED_HOUSES[5] -> resources.getDrawable(R.drawable.baratheon_icon, context.theme)
+            NEED_HOUSES[6] -> resources.getDrawable(R.drawable.martel_icon, context.theme)
+            else -> resources.getDrawable(R.drawable.ic_block_black_24dp, context.theme)
+        }
 }
 
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
