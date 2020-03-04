@@ -3,6 +3,7 @@ package ru.skillbranch.gameofthrones.ui.chatacterslist
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.screen_characters_list.*
 import ru.skillbranch.gameofthrones.AppConfig.NEED_HOUSES
@@ -34,10 +35,17 @@ class CharactersListScreen : AppCompatActivity() {
     }
 
     private fun initViews() {
-        vp_root.adapter = CharactersListFragmentAdapter(this)
+        view_pager_list.adapter = CharactersListFragmentAdapter(this)
+        view_pager_list.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val backgroundColor = getColorByPosition(position)
+                toolbar.setBackgroundColor(backgroundColor)
+                tab_layout_houses.setBackgroundColor(backgroundColor)
+            }
+        })
 
-
-        TabLayoutMediator(tl_houses, vp_root) { tab, position ->
+        TabLayoutMediator(tab_layout_houses, view_pager_list) { tab, position ->
             tab.text = NEED_HOUSES[position].toShortName()
         }.attach()
     }
@@ -45,4 +53,16 @@ class CharactersListScreen : AppCompatActivity() {
     private fun initToolbar() {
         setSupportActionBar(toolbar)
     }
+
+    private fun getColorByPosition(position: Int) =
+        when (position) {
+            0 -> resources.getColor(R.color.stark_primary, theme)
+            1 -> resources.getColor(R.color.lannister_primary, theme)
+            2 -> resources.getColor(R.color.targaryen_primary, theme)
+            3 -> resources.getColor(R.color.baratheon_primary, theme)
+            4 -> resources.getColor(R.color.greyjoy_primary, theme)
+            5 -> resources.getColor(R.color.martel_primary, theme)
+            6 -> resources.getColor(R.color.tyrel_primary, theme)
+            else -> resources.getColor(R.color.color_primary, theme)
+        }
 }

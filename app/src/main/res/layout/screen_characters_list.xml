@@ -17,20 +17,25 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tl_houses"
+        android:id="@+id/tab_layout_houses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="scrollable"/>
+        android:elevation="@dimen/spacing_small_8"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabMode="scrollable"
+        app:tabRippleColor="@color/color_gray_light"
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabTextColor="@color/color_gray_light" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp_root"
+        android:id="@+id/view_pager_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
 
 </LinearLayout>

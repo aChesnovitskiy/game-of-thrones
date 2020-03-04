@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.page_characters.*
+import kotlinx.android.synthetic.main.screen_characters_list.*
 import ru.skillbranch.gameofthrones.AppConfig.HOUSE
 import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.ui.chatacterslist.adapters.CharactersListAdapter
@@ -63,6 +64,7 @@ class CharactersListFragment : Fragment() {
 
     private fun initViews(house: String) {
         charactersListAdapter = CharactersListAdapter()
+
         val customDivider = InsetDrawable(
             resources.getDrawable(R.drawable.divider, activity?.theme),
             requireContext().dpToPx(72).toInt(),

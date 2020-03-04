@@ -66,7 +66,7 @@ class CharactersListAdapter() : RecyclerView.Adapter<ViewHolder>() {
     private fun getLogoByHouse(house: String, resources: Resources, context: Context) =
         when (house) {
             NEED_HOUSES[0].toShortName() -> resources.getDrawable(R.drawable.stark_icon, context.theme)
-            NEED_HOUSES[1].toShortName() -> resources.getDrawable(R.drawable.lanister_icon, context.theme)
+            NEED_HOUSES[1].toShortName() -> resources.getDrawable(R.drawable.lannister_icon, context.theme)
             NEED_HOUSES[2].toShortName() -> resources.getDrawable(R.drawable.targaryen_icon, context.theme)
             NEED_HOUSES[3].toShortName() -> resources.getDrawable(R.drawable.baratheon_icon, context.theme)
             NEED_HOUSES[4].toShortName() -> resources.getDrawable(R.drawable.greyjoy_icon, context.theme)
