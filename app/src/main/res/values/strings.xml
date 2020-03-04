@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Game of Thrones</string>
+
+    <!-- Text for views -->
     <string name="information_is_unknown">Information is unknown</string>
+    <string name="menu_search_title">Search</string>
+    <string name="enter_character_name">Enter character name</string>
 </resources>

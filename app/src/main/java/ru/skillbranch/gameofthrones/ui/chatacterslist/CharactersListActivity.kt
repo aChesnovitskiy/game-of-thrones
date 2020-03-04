@@ -1,25 +1,28 @@
-package ru.skillbranch.gameofthrones.ui.root
+package ru.skillbranch.gameofthrones.ui.chatacterslist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import androidx.appcompat.widget.SearchView
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.activity_root.*
+import kotlinx.android.synthetic.main.activity_characters_list.*
 import ru.skillbranch.gameofthrones.AppConfig.NEED_HOUSES
 import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.repositories.RootRepository
-import ru.skillbranch.gameofthrones.ui.adapters.CharactersListFragmentAdapter
+import ru.skillbranch.gameofthrones.ui.chatacterslist.adapters.CharactersListFragmentAdapter
 import ru.skillbranch.gameofthrones.utils.extensions.toShortName
+import ru.skillbranch.gameofthrones.viewmodels.CharacterListViewModel
 
 // TODO add comments ih whole project
 
-class RootActivity : AppCompatActivity() {
+class CharactersListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_root)
-        setSupportActionBar(toolbar)
+        setContentView(R.layout.activity_characters_list)
 
-        vp_root.adapter = CharactersListFragmentAdapter(this)
+        initToolbar()
+        initViews()
 
         // TODO move functional of working with DB to the splash screen
         // Get data from webAPI and insert it into DB
@@ -30,9 +33,18 @@ class RootActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun initViews() {
+        vp_root.adapter = CharactersListFragmentAdapter(this)
+
 
         TabLayoutMediator(tl_houses, vp_root) { tab, position ->
             tab.text = NEED_HOUSES[position].toShortName()
         }.attach()
+    }
+
+    private fun initToolbar() {
+        setSupportActionBar(toolbar)
     }
 }

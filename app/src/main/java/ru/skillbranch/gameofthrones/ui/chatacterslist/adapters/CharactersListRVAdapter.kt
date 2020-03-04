@@ -1,4 +1,4 @@
-package ru.skillbranch.gameofthrones.ui.adapters
+package ru.skillbranch.gameofthrones.ui.chatacterslist.adapters
 
 import android.content.Context
 import android.content.res.Resources
@@ -33,11 +33,12 @@ class CharactersListAdapter(val house: String) : RecyclerView.Adapter<ViewHolder
         diffResult.dispatchUpdatesTo(this)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
-        LayoutInflater.from(parent.context).inflate(
-            R.layout.item_character, parent, false
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
+        ViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_character, parent, false
+            )
         )
-    )
 
     override fun getItemCount(): Int = characters.size
 
