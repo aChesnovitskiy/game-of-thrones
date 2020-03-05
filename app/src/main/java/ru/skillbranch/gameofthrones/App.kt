@@ -2,6 +2,7 @@ package ru.skillbranch.gameofthrones
 
 import android.app.Application
 import android.content.Context
+import android.content.res.Resources
 
 class App : Application() {
     companion object {
@@ -9,6 +10,10 @@ class App : Application() {
 
         fun applicationContext() : Context {
             return instance!!.applicationContext
+        }
+
+        fun applicationResources() : Resources {
+            return instance!!.resources
         }
     }
 

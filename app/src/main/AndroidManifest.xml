@@ -20,8 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.chatacterslist.CharactersListScreen"
-            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".ui.chatacterslist.CharactersListScreen"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.character.CharacterScreen"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

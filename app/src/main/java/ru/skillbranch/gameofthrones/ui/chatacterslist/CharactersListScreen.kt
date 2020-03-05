@@ -12,6 +12,10 @@ import ru.skillbranch.gameofthrones.utils.extensions.toShortName
 
 // TODO add comments ih whole project
 
+// TODO CharactersList header animation
+
+// TODO headheader transparency
+
 class CharactersListScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
