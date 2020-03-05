@@ -16,7 +16,6 @@ import ru.skillbranch.gameofthrones.utils.extensions.toShortName
 
 class CharactersListScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.screen_characters_list)
 
@@ -34,8 +33,14 @@ class CharactersListScreen : AppCompatActivity() {
         }
     }
 
+    private fun initToolbar() {
+        setSupportActionBar(toolbar)
+    }
+
     private fun initViews() {
         view_pager_list.adapter = CharactersListFragmentAdapter(this)
+
+        // Change header's color when change page
         view_pager_list.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -48,10 +53,6 @@ class CharactersListScreen : AppCompatActivity() {
         TabLayoutMediator(tab_layout_houses, view_pager_list) { tab, position ->
             tab.text = NEED_HOUSES[position].toShortName()
         }.attach()
-    }
-
-    private fun initToolbar() {
-        setSupportActionBar(toolbar)
     }
 
     private fun getColorByPosition(position: Int) =
