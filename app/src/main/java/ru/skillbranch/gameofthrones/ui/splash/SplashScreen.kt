@@ -1,59 +1,137 @@
 package ru.skillbranch.gameofthrones.ui.splash
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import ru.skillbranch.gameofthrones.AppConfig.BASE_URL
+import android.util.Log
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.DecelerateInterpolator
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.screen_splash.*
+import ru.skillbranch.gameofthrones.AppConfig.NEED_HOUSES
 import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.repositories.RootRepository
 import ru.skillbranch.gameofthrones.ui.chatacterslist.CharactersListScreen
-import java.lang.Exception
-import java.net.InetAddress
 
 class SplashScreen : AppCompatActivity() {
     companion object {
-        private const val ACTION_NO_INTERNET = 0
-        private const val ACTION_UPDATE_DB = 1
-        private const val ACTION_LOADING = 2
-
         private const val LOADING_DELAY = 5000L
+        private const val ANIMATION_DURATION = 2000L
+        private const val ALPHA_MAX = 0.3f
     }
-
-    // TODO add animation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.screen_splash)
 
-        var isNeedUpdate = false
-        RootRepository.isNeedUpdate { isNeedUpdate = it }
+        setAnimation()
 
-        val isInternetAvailable = isInternetAvailable()
+        val isNetworkAvailable = checkNetworkAvailable()
+        Log.d("My_", "isNetworkAvailable: $isNetworkAvailable")
 
-        when (getSplashAction(isNeedUpdate, isInternetAvailable)) {
-            ACTION_NO_INTERNET ->
-                ACTION_UPDATE_DB
-            ->
-                ACTION_LOADING
-            ->
+        RootRepository.isNeedUpdate { isNeedUpdate ->
+            Log.d("My_", "isNeedUpdate: $isNeedUpdate")
+            if (isNeedUpdate) {
+                if (isNetworkAvailable) {
+                    RootRepository.getNeedHouseWithCharacters(*NEED_HOUSES) { needHouseWithCharacters ->
+                        RootRepository.insertHouses(needHouseWithCharacters.map { it.first }) {
+                            RootRepository.insertCharacters(needHouseWithCharacters.map { it.second }.flatten()) {
+                                Log.d("My_", "Finish inserting data into DB")
+                                goToCharactersList()
+                            }
+                        }
+                    }
+                } else {
+                    Log.d("My_", "No network connection")
+                    Snackbar.make(
+                        iv_cover,
+                        "Internet unavailable - the application cannot be started. Connect to the Internet and restart the application",
+                        Snackbar.LENGTH_INDEFINITE
+                    ).show()
+                }
+            } else {
+                Log.d("My_", "Splash loading")
+                Handler().postDelayed({ goToCharactersList() }, LOADING_DELAY)
+            }
+        }
+    }
+
+    private fun checkNetworkAvailable(): Boolean {
+        // Copy from dmisuvorov github
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            connectivityManager.run {
+                getNetworkCapabilities(activeNetwork)?.let { networkCapabilities ->
+                    return when {
+                        networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                        networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                        networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                        networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) -> true
+                        else -> false
+                    }
+                }
+            }
         }
 
-        Handler().postDelayed({
-            startActivity(Intent(this, CharactersListScreen::class.java))
-            finish()
-        }, LOADING_DELAY)
+        connectivityManager.run {
+            activeNetworkInfo ?: return false
+            return true
+        }
     }
 
-    private fun isInternetAvailable(): Boolean = try {
-        !InetAddress.getByName(BASE_URL).equals("")
-    } catch (e: Exception) {
-        false
+    private fun goToCharactersList() {
+        Log.d("My_", "Go to characters list")
+        startActivity(Intent(this, CharactersListScreen::class.java))
+        finish()
     }
 
-    private fun getSplashAction(isNeedUpdate: Boolean, isInternetAvailable: Boolean) = when {
-        isNeedUpdate && !isInternetAvailable -> ACTION_NO_INTERNET
-        isNeedUpdate && isInternetAvailable -> ACTION_UPDATE_DB
-        else -> ACTION_LOADING
+    private fun setAnimation() {
+        val fadeIn = AlphaAnimation(0f, ALPHA_MAX)
+        val fadeOut = AlphaAnimation(ALPHA_MAX, 0f)
+
+        fadeIn.apply {
+            duration = ANIMATION_DURATION
+            interpolator = DecelerateInterpolator()
+            fillAfter = true
+            setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationRepeat(animation: Animation?) {
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    iv_cover.startAnimation(fadeOut)
+                }
+
+                override fun onAnimationStart(animation: Animation?) {
+                }
+
+            })
+        }
+
+        fadeOut.apply {
+            duration = ANIMATION_DURATION
+            interpolator = DecelerateInterpolator()
+            fillAfter = true
+            setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationRepeat(animation: Animation?) {
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    iv_cover.startAnimation(fadeIn)
+                }
+
+                override fun onAnimationStart(animation: Animation?) {
+                }
+
+            })
+        }
+
+        iv_cover.startAnimation(fadeIn)
     }
 }

@@ -2,13 +2,11 @@ package ru.skillbranch.gameofthrones.ui.chatacterslist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.screen_characters_list.*
 import ru.skillbranch.gameofthrones.AppConfig.NEED_HOUSES
 import ru.skillbranch.gameofthrones.R
-import ru.skillbranch.gameofthrones.repositories.RootRepository
 import ru.skillbranch.gameofthrones.ui.chatacterslist.adapters.CharactersListFragmentAdapter
 import ru.skillbranch.gameofthrones.utils.extensions.toShortName
 
@@ -21,16 +19,6 @@ class CharactersListScreen : AppCompatActivity() {
 
         initToolbar()
         initViews()
-
-        // TODO move functional of working with DB to the splash screen
-        // Get data from webAPI and insert it into DB
-        RootRepository.getNeedHouseWithCharacters(*NEED_HOUSES) { needHouseWithCharacters ->
-            RootRepository.insertHouses(needHouseWithCharacters.map { it.first }) {
-                RootRepository.insertCharacters(needHouseWithCharacters.map { it.second }.flatten()) {
-                    Log.d("My_", "Finish inserting data into DB")
-                }
-            }
-        }
     }
 
     private fun initToolbar() {

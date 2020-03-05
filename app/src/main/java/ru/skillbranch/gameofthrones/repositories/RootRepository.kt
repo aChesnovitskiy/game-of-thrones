@@ -33,7 +33,7 @@ object RootRepository {
     private val characterDao = database?.characterDao
 
 
-    // copy all fun bodies and private funs from dmisuvorov github, cause need to go further
+    // Copy all fun bodies and private funs from dmisuvorov github, cause need to go further
     // TODO - understand (need to learn RxJava) and maybe change
 
     /**
