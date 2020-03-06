@@ -3,7 +3,7 @@
     <!-- Font sizes -->
     <dimen name="font_large_20">20sp</dimen>
     <dimen name="font_normal_16">16sp</dimen>
-    <dimen name="font_liitle_normal_14">14sp</dimen>
+    <dimen name="font_little_normal_14">14sp</dimen>
     <dimen name="font_small_12">12sp</dimen>
 
     <!-- Typical spacing between two views -->
@@ -15,5 +15,5 @@
     <dimen name="spacing_tiny_4">4dp</dimen>
 
     <!-- Images sizes -->
-    <dimen name="image_normal_40">40dp</dimen>
+    <dimen name="image_normal_42">42dp</dimen>
 </resources>

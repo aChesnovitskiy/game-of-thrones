@@ -4,25 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.character.CharacterScreen">
+    tools:context=".ui.character.CharacterScreen"
+    tools:theme="@style/AppTheme">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        tools:expanded="false">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleGravity="top"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+            app:collapsedTitleTextAppearance="@style/CollapsedTitleText"
+            app:expandedTitleGravity="bottom|center_horizontal"
+            app:expandedTitleMarginBottom="100dp"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Headline.GameOfThrones"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:statusBarScrim="?attr/colorPrimary"
+            app:title="John Snow">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
                 android:src="@drawable/greyjoy_coast_of_arms"
                 app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.5"/>
+                app:layout_collapseParallaxMultiplier="0.05" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -34,5 +44,154 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/character_list_background">
+
+            <TextView
+                android:id="@+id/tv_words"
+                style="@style/PropertiesLabelText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/words"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_property_words"
+                style="@style/PropertiesText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="Blablablabla Blablablabla Blablablabla Blablablabla"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_words"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@+id/barrier" />
+
+            <TextView
+                android:id="@+id/tv_born"
+                style="@style/PropertiesLabelText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/born"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_property_words" />
+
+            <TextView
+                android:id="@+id/tv_property_born"
+                style="@style/PropertiesText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="Blablablabla Blablablabla Blablablabla Blablablabla"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_born"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@+id/barrier" />
+
+            <TextView
+                android:id="@+id/tv_titles"
+                style="@style/PropertiesLabelText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/titles"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_property_born" />
+
+            <TextView
+                android:id="@+id/tv_property_titles"
+                style="@style/PropertiesText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="Blablablabla Blablablabla Blablablabla Blablablabla"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_titles"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@+id/barrier" />
+
+            <TextView
+                android:id="@+id/tv_aliases"
+                style="@style/PropertiesLabelText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/aliases"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_property_titles" />
+
+            <TextView
+                android:id="@+id/tv_property_aliases"
+                style="@style/PropertiesText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="Blablablabla Blablablabla Blablablabla Blablablabla"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_aliases"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@+id/barrier" />
+
+            <TextView
+                android:id="@+id/tv_father"
+                style="@style/PropertiesLabelText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/father"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_property_aliases" />
+
+            <Button
+                android:id="@+id/btn_father"
+                style="@style/CharacterListButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Rhaegar Targaryen"
+                android:visibility="gone"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_father"
+                app:layout_constraintStart_toEndOf="@+id/barrier" />
+
+            <TextView
+                android:id="@+id/tv_mother"
+                style="@style/PropertiesLabelText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/mother"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/barrier2" />
+
+            <Button
+                android:id="@+id/btn_mother"
+                style="@style/CharacterListButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Lyanna Stark"
+                android:visibility="gone"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_mother"
+                app:layout_constraintStart_toEndOf="@+id/barrier" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="tv_words, tv_born, tv_titles, tv_aliases, tv_father, tv_mother" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="tv_property_aliases, btn_father" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

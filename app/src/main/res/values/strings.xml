@@ -5,4 +5,10 @@
     <string name="information_is_unknown">Information is unknown</string>
     <string name="menu_search_title">Search</string>
     <string name="enter_character_name">Enter character name</string>
+    <string name="words">Words:</string>
+    <string name="born">Born:</string>
+    <string name="titles">Titles:</string>
+    <string name="aliases">Aliases:</string>
+    <string name="father">Father:</string>
+    <string name="mother">Mother:</string>
 </resources>

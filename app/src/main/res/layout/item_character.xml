@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/iv_house_logo"
-        android:layout_width="@dimen/image_normal_40"
-        android:layout_height="@dimen/image_normal_40"
+        android:layout_width="@dimen/image_normal_42"
+        android:layout_height="@dimen/image_normal_42"
         android:layout_marginStart="@dimen/spacing_normal_16"
         android:layout_marginTop="@dimen/spacing_normal_16"
         android:src="@drawable/ic_block_black_24dp"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_normal_16"
         android:textColor="@color/color_primary"
-        android:textSize="@dimen/font_liitle_normal_14"
+        android:textSize="@dimen/font_normal_16"
         app:layout_constraintStart_toEndOf="@+id/iv_house_logo"
         app:layout_constraintTop_toTopOf="@+id/iv_house_logo"
         tools:text="Arya Stark" />
