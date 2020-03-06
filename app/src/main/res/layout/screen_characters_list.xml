@@ -18,18 +18,19 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
-    </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout_houses"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="@dimen/spacing_small_8"
-        app:tabIndicatorColor="@android:color/white"
-        app:tabMode="scrollable"
-        app:tabRippleColor="@color/color_gray_light"
-        app:tabSelectedTextColor="@android:color/white"
-        app:tabTextColor="@color/color_gray_light" />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout_houses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/spacing_small_8"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabMode="scrollable"
+            app:tabRippleColor="@color/color_gray_light"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextColor="@color/color_gray_light" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager_list"

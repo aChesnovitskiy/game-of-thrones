@@ -1,5 +1,6 @@
 package ru.skillbranch.gameofthrones.ui.chatacterslist
 
+import android.content.Intent
 import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
 import android.util.Log
@@ -12,8 +13,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.page_characters.*
 import kotlinx.android.synthetic.main.screen_characters_list.*
+import ru.skillbranch.gameofthrones.App
 import ru.skillbranch.gameofthrones.AppConfig.HOUSE
 import ru.skillbranch.gameofthrones.R
+import ru.skillbranch.gameofthrones.ui.character.CharacterScreen
 import ru.skillbranch.gameofthrones.ui.chatacterslist.adapters.CharactersListAdapter
 import ru.skillbranch.gameofthrones.utils.extensions.dpToPx
 import ru.skillbranch.gameofthrones.viewmodels.CharacterListViewModel
@@ -39,7 +42,7 @@ class CharactersListFragment : Fragment() {
             requireArguments().getString(HOUSE)?.let { house = it }
         }
 
-        initViews(house)
+        initViews()
         initViewModel(house)
     }
 
@@ -62,8 +65,10 @@ class CharactersListFragment : Fragment() {
         })
     }
 
-    private fun initViews(house: String) {
-        charactersListAdapter = CharactersListAdapter()
+    private fun initViews() {
+        charactersListAdapter = CharactersListAdapter() {
+            goToCharacterScreen()
+        }
 
         val customDivider = InsetDrawable(
             resources.getDrawable(R.drawable.divider, activity?.theme),
@@ -88,6 +93,12 @@ class CharactersListFragment : Fragment() {
         viewModel.getCharacterItemsFromDB(house)
         viewModel.getCharacterItems(house)
             .observe(viewLifecycleOwner, Observer { charactersListAdapter.updateData(it) })
+    }
+
+
+    private fun goToCharacterScreen() {
+        val intent = Intent(App.applicationContext(), CharacterScreen::class.java)
+        startActivity(intent)
     }
 }
 

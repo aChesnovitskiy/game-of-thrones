@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_character.*
-import kotlinx.android.synthetic.main.item_character.view.*
 import ru.skillbranch.gameofthrones.App
 import ru.skillbranch.gameofthrones.AppConfig.NEED_HOUSES
 import ru.skillbranch.gameofthrones.R
@@ -18,7 +17,8 @@ import ru.skillbranch.gameofthrones.utils.extensions.mergeWithDots
 import ru.skillbranch.gameofthrones.utils.extensions.toShortName
 
 /* Adapter for RecyclerView with characters */
-class CharactersListAdapter() : RecyclerView.Adapter<CharactersListAdapter.ViewHolder>() {
+class CharactersListAdapter(val listener: (CharacterItem) -> Unit) :
+    RecyclerView.Adapter<CharactersListAdapter.ViewHolder>() {
     var characters = listOf<CharacterItem>()
 
     fun updateData(data: List<CharacterItem>) {
@@ -47,7 +47,7 @@ class CharactersListAdapter() : RecyclerView.Adapter<CharactersListAdapter.ViewH
     override fun getItemCount(): Int = characters.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(characters[position])
+        holder.bind(characters[position], listener)
     }
 
     private fun getTitlesAndAliases(character: CharacterItem): MutableList<String> {
@@ -59,31 +59,57 @@ class CharactersListAdapter() : RecyclerView.Adapter<CharactersListAdapter.ViewH
 
     private fun getLogoByHouse(house: String, resources: Resources, context: Context) =
         when (house) {
-            NEED_HOUSES[0].toShortName() -> resources.getDrawable(R.drawable.stark_icon, context.theme)
-            NEED_HOUSES[1].toShortName() -> resources.getDrawable(R.drawable.lannister_icon, context.theme)
-            NEED_HOUSES[2].toShortName() -> resources.getDrawable(R.drawable.targaryen_icon, context.theme)
-            NEED_HOUSES[3].toShortName() -> resources.getDrawable(R.drawable.baratheon_icon, context.theme)
-            NEED_HOUSES[4].toShortName() -> resources.getDrawable(R.drawable.greyjoy_icon, context.theme)
-            NEED_HOUSES[5].toShortName() -> resources.getDrawable(R.drawable.martel_icon, context.theme)
-            NEED_HOUSES[6].toShortName() -> resources.getDrawable(R.drawable.tyrel_icon, context.theme)
+            NEED_HOUSES[0].toShortName() -> resources.getDrawable(
+                R.drawable.stark_icon,
+                context.theme
+            )
+            NEED_HOUSES[1].toShortName() -> resources.getDrawable(
+                R.drawable.lannister_icon,
+                context.theme
+            )
+            NEED_HOUSES[2].toShortName() -> resources.getDrawable(
+                R.drawable.targaryen_icon,
+                context.theme
+            )
+            NEED_HOUSES[3].toShortName() -> resources.getDrawable(
+                R.drawable.baratheon_icon,
+                context.theme
+            )
+            NEED_HOUSES[4].toShortName() -> resources.getDrawable(
+                R.drawable.greyjoy_icon,
+                context.theme
+            )
+            NEED_HOUSES[5].toShortName() -> resources.getDrawable(
+                R.drawable.martel_icon,
+                context.theme
+            )
+            NEED_HOUSES[6].toShortName() -> resources.getDrawable(
+                R.drawable.tyrel_icon,
+                context.theme
+            )
             else -> resources.getDrawable(R.drawable.ic_block_black_24dp, context.theme)
         }
 
-    inner class ViewHolder(containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(containerView: View) : RecyclerView.ViewHolder(containerView),
+        LayoutContainer {
         override val containerView: View?
             get() = itemView
 
-        fun bind (item: CharacterItem) {
+        fun bind(character: CharacterItem, listener: (CharacterItem) -> Unit) {
             val context = App.applicationContext()
-            val name = item.name
-            val info = getTitlesAndAliases(item).mergeWithDots()
-            val logo = getLogoByHouse(item.house, App.applicationResources(), context)
+            val name = character.name
+            val info = getTitlesAndAliases(character).mergeWithDots()
+            val logo = getLogoByHouse(character.house, App.applicationResources(), context)
 
             tv_character_name.text = if (name.isNotEmpty()) name else
                 context.getString(R.string.information_is_unknown)
             tv_character_info.text = if (info.isNotEmpty()) info else
                 context.getString(R.string.information_is_unknown)
             iv_house_logo.setImageDrawable(logo)
+
+            itemView.setOnClickListener() {
+                listener.invoke(character)
+            }
         }
     }
 }

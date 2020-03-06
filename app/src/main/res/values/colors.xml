@@ -9,6 +9,8 @@
 
     <color name="ic_launcher_background">#dedede</color>
 
+    <color name="character_list_background">#fafafa</color>
+
     <color name="stark_primary">#414141</color>
     <color name="stark_accent">#C3C3C1</color>
     <color name="stark_dark">#272727</color>
