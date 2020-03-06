@@ -27,6 +27,7 @@
             app:title="John Snow">
 
             <ImageView
+                android:id="@+id/iv_house_coast_of_arm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"

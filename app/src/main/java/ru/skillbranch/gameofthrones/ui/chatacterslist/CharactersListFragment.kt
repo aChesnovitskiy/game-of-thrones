@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.screen_characters_list.*
 import ru.skillbranch.gameofthrones.App
 import ru.skillbranch.gameofthrones.AppConfig.HOUSE
 import ru.skillbranch.gameofthrones.R
+import ru.skillbranch.gameofthrones.data.local.entities.CharacterItem
 import ru.skillbranch.gameofthrones.ui.character.CharacterScreen
 import ru.skillbranch.gameofthrones.ui.chatacterslist.adapters.CharactersListAdapter
 import ru.skillbranch.gameofthrones.utils.extensions.dpToPx
@@ -67,7 +68,7 @@ class CharactersListFragment : Fragment() {
 
     private fun initViews() {
         charactersListAdapter = CharactersListAdapter() {
-            goToCharacterScreen()
+            goToCharacterScreen(it)
         }
 
         val customDivider = InsetDrawable(
@@ -95,9 +96,9 @@ class CharactersListFragment : Fragment() {
             .observe(viewLifecycleOwner, Observer { charactersListAdapter.updateData(it) })
     }
 
-
-    private fun goToCharacterScreen() {
+    private fun goToCharacterScreen(character: CharacterItem) {
         val intent = Intent(App.applicationContext(), CharacterScreen::class.java)
+        intent.putExtra("id", character.id)
         startActivity(intent)
     }
 }
