@@ -21,7 +21,7 @@ import ru.skillbranch.gameofthrones.ui.chatacterslist.CharactersListScreen
 
 class SplashScreen : AppCompatActivity() {
     companion object {
-        private const val LOADING_DELAY = 0L // TODO change to 5000L
+        private const val LOADING_DELAY = 5000L
         private const val ANIMATION_DURATION = 2000L
         private const val ALPHA_MAX = 0.2f
     }
@@ -35,6 +35,7 @@ class SplashScreen : AppCompatActivity() {
         val isNetworkAvailable = checkNetworkAvailable()
         Log.d("My_", "isNetworkAvailable: $isNetworkAvailable")
 
+
         // Working with DB
         RootRepository.isNeedUpdate { isNeedUpdate ->
             Log.d("My_", "isNeedUpdate: $isNeedUpdate")
@@ -44,7 +45,8 @@ class SplashScreen : AppCompatActivity() {
                 if (isNetworkAvailable) {
                     RootRepository.getNeedHouseWithCharacters(*NEED_HOUSES) { needHouseWithCharacters ->
                         RootRepository.insertHouses(needHouseWithCharacters.map { it.first }) {
-                            RootRepository.insertCharacters(needHouseWithCharacters.map { it.second }.flatten()) {
+                            RootRepository.insertCharacters(needHouseWithCharacters.map { it.second }
+                                .flatten()) {
                                 Log.d("My_", "Finish inserting data into DB")
                                 goToCharactersList()
                             }
@@ -65,6 +67,7 @@ class SplashScreen : AppCompatActivity() {
                 Handler().postDelayed({ goToCharactersList() }, LOADING_DELAY)
             }
         }
+
     }
 
     private fun checkNetworkAvailable(): Boolean {

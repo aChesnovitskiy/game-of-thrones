@@ -27,6 +27,7 @@ class CharacterScreen : AppCompatActivity() {
         id = getIdFromIntent()
 
         RootRepository.findCharacterFullById(id) {
+            Log.d("M_CharacterScreen", it.toString())
             initViews(it)
         }
     }
@@ -85,15 +86,14 @@ class CharacterScreen : AppCompatActivity() {
         tv_property_aliases.text =
             if (character.aliases[0].isNotBlank()) character.aliases.joinToString(",\n") else iIsU
 
-        if (character.father != null /*&& !character.father.id.isBlank()*/) {
+        if (character.father != null && character.father.id.isNotEmpty()) {
             tv_father.visibility = View.VISIBLE
             btn_father.apply {
                 visibility = View.VISIBLE
                 setBackgroundColor(primaryColor)
-//                text = character.father.name
-                setOnClickListener { Log.d("M_CharacterScreen", "NAME = ${character.father.name}") }
+                text = character.father.name
+                setOnClickListener { goToCharacterScreen(character.father.id) }
             }
-
         }
 
         if (character.mother != null && character.mother.id.isNotEmpty()) {
@@ -105,26 +105,6 @@ class CharacterScreen : AppCompatActivity() {
                 setOnClickListener { goToCharacterScreen(character.mother.id) }
             }
         }
-
-//        character.father?.takeIf { it.id.isNotEmpty() }?.let { father ->
-//            tv_father.visibility = View.VISIBLE
-//            btn_father.apply {
-//                visibility = View.VISIBLE
-//                setBackgroundColor(primaryColor)
-//                text = father.name
-//                setOnClickListener { goToCharacterScreen(father.id) }
-//            }
-//        }
-//
-//        character.mother?.takeIf { it.id.isNotEmpty() }?.let { mother ->
-//            tv_mother.visibility = View.VISIBLE
-//            btn_mother.apply {
-//                visibility = View.VISIBLE
-//                setBackgroundColor(primaryColor)
-//                text = mother.name
-//                setOnClickListener { goToCharacterScreen(mother.id) }
-//            }
-//        }
 
         if (character.died.isNotEmpty()) {
             Snackbar.make(

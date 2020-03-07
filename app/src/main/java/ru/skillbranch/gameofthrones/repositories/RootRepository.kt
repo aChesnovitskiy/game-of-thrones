@@ -142,8 +142,8 @@ object RootRepository {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun insertHouses(houses: List<HouseRes>, complete: () -> Unit) {
         val disposable = Completable.fromAction {
-            houseDao?.insertHouses(houses.map { it.toHouse() })
-        }
+                houseDao?.insertHouses(houses.map { it.toHouse() })
+            }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -160,8 +160,11 @@ object RootRepository {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun insertCharacters(characters: List<CharacterRes>, complete: () -> Unit) {
         val disposable = Completable.fromAction {
-            characterDao?.insertCharacters(characters.map { it.toCharacter() })
-        }
+                for (char in characters.map { it.toCharacter() }) { // TODO delete
+                    Log.d("M_RootRepository", char.toString())
+                }
+                characterDao?.insertCharacters(characters.map { it.toCharacter() })
+            }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -176,8 +179,8 @@ object RootRepository {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun dropDb(complete: () -> Unit) {
         val disposable = Completable.fromAction {
-            database?.clearAllTables()
-        }
+                database?.clearAllTables()
+            }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -245,7 +248,8 @@ object RootRepository {
             .subscribe(
                 { characters ->
                     Log.d("M_RootRepository", "MotherID = ${characters.mother?.id}")
-                    result(characters) },
+                    result(characters)
+                },
                 { error -> error.printStackTrace() },
                 { throw IllegalArgumentException("No such character") })
     }
@@ -256,8 +260,8 @@ object RootRepository {
      */
     fun isNeedUpdate(result: (isNeed: Boolean) -> Unit) {
         val disposable = Single.zip(houseDao?.getCountEntity(),
-            characterDao?.getCountEntity(),
-            BiFunction { countHouses: Int, countCharacters: Int -> countHouses + countCharacters })
+                characterDao?.getCountEntity(),
+                BiFunction { countHouses: Int, countCharacters: Int -> countHouses + countCharacters })
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
