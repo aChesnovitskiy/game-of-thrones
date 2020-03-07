@@ -39,6 +39,7 @@ class CharactersListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         var house = ""
 
+        // Get house name from Bundle
         if (arguments != null) {
             requireArguments().getString(HOUSE)?.let { house = it }
         }
@@ -47,6 +48,7 @@ class CharactersListFragment : Fragment() {
         initViewModel(house)
     }
 
+    // Setup search menu
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
         inflater.inflate(R.menu.menu_search, menu)
@@ -71,6 +73,7 @@ class CharactersListFragment : Fragment() {
             goToCharacterScreen(it)
         }
 
+        // Draw divider
         val customDivider = InsetDrawable(
             resources.getDrawable(R.drawable.divider, activity?.theme),
             requireContext().dpToPx(72).toInt(),

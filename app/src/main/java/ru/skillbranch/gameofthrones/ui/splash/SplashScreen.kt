@@ -35,9 +35,12 @@ class SplashScreen : AppCompatActivity() {
         val isNetworkAvailable = checkNetworkAvailable()
         Log.d("My_", "isNetworkAvailable: $isNetworkAvailable")
 
+        // Working with DB
         RootRepository.isNeedUpdate { isNeedUpdate ->
             Log.d("My_", "isNeedUpdate: $isNeedUpdate")
+            //Check for need of updating DB
             if (isNeedUpdate) {
+                // Get houses and characters data from API and insert it into DB
                 if (isNetworkAvailable) {
                     RootRepository.getNeedHouseWithCharacters(*NEED_HOUSES) { needHouseWithCharacters ->
                         RootRepository.insertHouses(needHouseWithCharacters.map { it.first }) {
@@ -48,6 +51,7 @@ class SplashScreen : AppCompatActivity() {
                         }
                     }
                 } else {
+                    // If there is no network connection
                     Log.d("My_", "No network connection")
                     Snackbar.make(
                         iv_cover,
@@ -56,6 +60,7 @@ class SplashScreen : AppCompatActivity() {
                     ).show()
                 }
             } else {
+                // DB has data, so we are waiting some time ("loading") before go further
                 Log.d("My_", "Splash loading")
                 Handler().postDelayed({ goToCharactersList() }, LOADING_DELAY)
             }

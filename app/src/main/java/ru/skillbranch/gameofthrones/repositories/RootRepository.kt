@@ -21,6 +21,7 @@ import ru.skillbranch.gameofthrones.data.remote.res.HouseRes
 import ru.skillbranch.gameofthrones.utils.extensions.toCharacter
 import ru.skillbranch.gameofthrones.utils.extensions.toHouse
 import ru.skillbranch.gameofthrones.utils.extensions.toShortName
+import java.lang.IllegalArgumentException
 
 object RootRepository {
     private val apiFactory = ApiFactory
@@ -223,8 +224,6 @@ object RootRepository {
                         else
                             Maybe.just(characterFull)
                     }
-
-
             }
             .flatMap { characterFull ->
                 Maybe.just(characterFull)
@@ -244,8 +243,10 @@ object RootRepository {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { result(it) },
-                { it.printStackTrace() },
+                { characters ->
+                    Log.d("M_RootRepository", "MotherID = ${characters.mother?.id}")
+                    result(characters) },
+                { error -> error.printStackTrace() },
                 { throw IllegalArgumentException("No such character") })
     }
 

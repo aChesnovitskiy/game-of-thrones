@@ -2,12 +2,14 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.character.CharacterScreen"
     tools:theme="@style/AppTheme">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -15,23 +17,23 @@
         tools:expanded="false">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
             app:collapsedTitleTextAppearance="@style/CollapsedTitleText"
             app:expandedTitleGravity="bottom|center_horizontal"
-            app:expandedTitleMarginBottom="100dp"
+            app:expandedTitleMarginBottom="95dp"
             app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Headline.GameOfThrones"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:statusBarScrim="?attr/colorPrimary"
-            app:title="John Snow">
+            tools:title="John Snow">
 
             <ImageView
                 android:id="@+id/iv_house_coast_of_arm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
-                android:src="@drawable/greyjoy_coast_of_arms"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.05" />
 
@@ -47,6 +49,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"

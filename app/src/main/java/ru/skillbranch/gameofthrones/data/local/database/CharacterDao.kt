@@ -28,7 +28,6 @@ interface CharacterDao {
     @Query("SELECT id, name, houseId as house FROM characters WHERE id = :id")
     fun findRelativeCharacterById(id: String): Single<RelativeCharacter>
 
-
     @Query("SELECT COUNT(*) FROM houses")
     fun getCountEntity(): Single<Int>
 }

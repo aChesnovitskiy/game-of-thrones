@@ -17,6 +17,7 @@ class CharactersListFragmentAdapter(fragmentActivity: FragmentActivity) :
     override fun createFragment(position: Int): Fragment {
         val fragment = CharactersListFragment()
 
+        // Put house name into Bundle
         fragment.arguments = Bundle().apply {
             putString(HOUSE, NEED_HOUSES[position])
             Log.d("My_", "Fragment created. House: ${NEED_HOUSES[position]}")
