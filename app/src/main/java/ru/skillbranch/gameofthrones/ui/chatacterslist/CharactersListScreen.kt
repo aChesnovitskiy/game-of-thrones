@@ -1,7 +1,11 @@
 package ru.skillbranch.gameofthrones.ui.chatacterslist
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.DecelerateInterpolator
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.screen_characters_list.*
@@ -15,9 +19,9 @@ import ru.skillbranch.gameofthrones.utils.extensions.toShortName
 
 // TODO CharactersList header animation
 
-// TODO headheader transparency
-
 class CharactersListScreen : AppCompatActivity() {
+    var houseColor = Color.WHITE
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.screen_characters_list)
@@ -33,14 +37,32 @@ class CharactersListScreen : AppCompatActivity() {
     private fun initViews() {
         view_pager_list.adapter = CharactersListFragmentAdapter(this)
 
-        // Change header's color when change page
+        val revealAnimation = AlphaAnimation(0f, 1f).apply {
+            duration = 1000L
+            interpolator = DecelerateInterpolator()
+            setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationRepeat(animation: Animation?) {
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    app_bar.setBackgroundColor(houseColor)
+                }
+
+                override fun onAnimationStart(animation: Animation?) {
+                }
+
+            })
+        }
+
+        // Set header's color when change page
         view_pager_list.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                val backgroundColor =
-                    HouseUtils.getPrimaryColor(NEED_HOUSES[position].toShortName())
-                toolbar.setBackgroundColor(backgroundColor)
-                tab_layout_houses.setBackgroundColor(backgroundColor)
+
+                houseColor = HouseUtils.getPrimaryColor(NEED_HOUSES[position].toShortName())
+
+                view_reveal.setBackgroundColor(houseColor)
+                view_reveal.startAnimation(revealAnimation)
             }
         })
 

@@ -16,4 +16,7 @@
 
     <!-- Images sizes -->
     <dimen name="image_normal_42">42dp</dimen>
+
+    <!-- Status bar sizes -->
+    <dimen name="status_bar_24">24dp</dimen>
 </resources>

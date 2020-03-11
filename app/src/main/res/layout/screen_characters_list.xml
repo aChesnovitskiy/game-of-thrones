@@ -5,30 +5,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.chatacterslist.CharactersListScreen"
-    tools:theme="@style/AppTheme">
+    tools:context=".ui.chatacterslist.CharactersListScreen">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="wrap_content">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout_houses"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="@dimen/spacing_small_8"
-            app:tabIndicatorColor="@android:color/white"
-            app:tabMode="scrollable"
-            app:tabRippleColor="@color/color_gray_light"
-            app:tabSelectedTextColor="@android:color/white"
-            app:tabTextColor="@color/color_gray_light" />
+            <View
+                android:id="@+id/view_reveal"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/color_accent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="invisible"/>
+
+            <View
+                android:id="@+id/under_status_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/status_bar_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/under_status_bar" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout_houses"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:tabMode="scrollable"
+                app:tabIndicatorColor="@android:color/white"
+                app:tabRippleColor="@color/color_gray_light"
+                app:tabSelectedTextColor="@android:color/white"
+                app:tabTextColor="@color/color_gray_light" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
