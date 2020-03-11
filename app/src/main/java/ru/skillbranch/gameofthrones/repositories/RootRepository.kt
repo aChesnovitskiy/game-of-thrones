@@ -160,10 +160,10 @@ object RootRepository {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun insertCharacters(characters: List<CharacterRes>, complete: () -> Unit) {
         val disposable = Completable.fromAction {
-                for (char in characters.map { it.toCharacter() }) { // TODO delete
-                    Log.d("M_RootRepository", char.toString())
-                }
-                characterDao?.insertCharacters(characters.map { it.toCharacter() })
+            characterDao?.insertCharacters(characters.map { it.toCharacter() })
+//                for (char in characters.map { it.toCharacter() }) {
+//                    Log.d("M_RootRepository", char.toString())
+//                }
             }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

@@ -22,7 +22,7 @@ import ru.skillbranch.gameofthrones.ui.chatacterslist.CharactersListScreen
 class SplashScreen : AppCompatActivity() {
     companion object {
         private const val LOADING_DELAY = 5000L
-        private const val ANIMATION_DURATION = 2000L
+        private const val ANIMATION_DURATION = 1000L
         private const val ALPHA_MAX = 0.2f
     }
 

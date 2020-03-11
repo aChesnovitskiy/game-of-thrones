@@ -88,6 +88,7 @@ class CharacterScreen : AppCompatActivity() {
 
         if (character.father != null && character.father.id.isNotEmpty()) {
             tv_father.visibility = View.VISIBLE
+            tv_father.compoundDrawableTintList = ColorStateList.valueOf(accentColor)
             btn_father.apply {
                 visibility = View.VISIBLE
                 setBackgroundColor(primaryColor)
@@ -98,6 +99,7 @@ class CharacterScreen : AppCompatActivity() {
 
         if (character.mother != null && character.mother.id.isNotEmpty()) {
             tv_mother.visibility = View.VISIBLE
+            tv_mother.compoundDrawableTintList = ColorStateList.valueOf(accentColor)
             btn_mother.apply {
                 visibility = View.VISIBLE
                 setBackgroundColor(primaryColor)

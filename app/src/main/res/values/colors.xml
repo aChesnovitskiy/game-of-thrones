@@ -7,6 +7,8 @@
     <color name="color_gray">#8D8C8C</color>
     <color name="color_gray_light">#dedede</color>
 
+    <color name="color_splash_cover">#5E000F</color>
+
     <color name="ic_launcher_background">#dedede</color>
 
     <color name="character_list_background">#fafafa</color>
