@@ -13,6 +13,7 @@ class CharacterListViewModel : ViewModel() {
     private val characterItems = MutableLiveData<List<CharacterItem>>(listOf())
     private val query = MutableLiveData("")
 
+    // Fill list of characters of certain house for RecyclerView from DB
     fun getCharacterItemsFromDB(house: String) {
         RootRepository.findCharactersByHouseName(house.toShortName()) { characters ->
             characterItems.value = characters.sortedBy { it.name }
@@ -20,6 +21,7 @@ class CharacterListViewModel : ViewModel() {
         }
     }
 
+    // Get list of characters for setup into RecyclerView
     fun getCharacterItems(house: String): LiveData<List<CharacterItem>> {
         val result = MediatorLiveData<List<CharacterItem>>()
 

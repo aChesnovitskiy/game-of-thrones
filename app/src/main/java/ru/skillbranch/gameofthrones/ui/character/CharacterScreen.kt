@@ -24,6 +24,7 @@ class CharacterScreen : AppCompatActivity() {
 
         initToolbar()
 
+        // Character id from API
         id = getIdFromIntent()
 
         RootRepository.findCharacterFullById(id) {
@@ -32,6 +33,7 @@ class CharacterScreen : AppCompatActivity() {
         }
     }
 
+    // Set "home" button
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return if (item?.itemId == android.R.id.home) {
             finish()
@@ -86,6 +88,7 @@ class CharacterScreen : AppCompatActivity() {
         tv_property_aliases.text =
             if (character.aliases[0].isNotBlank()) character.aliases.joinToString(",\n") else iIsU
 
+        // Set "father" button if character has father in API
         if (character.father != null && character.father.id.isNotEmpty()) {
             tv_father.visibility = View.VISIBLE
             tv_father.compoundDrawableTintList = ColorStateList.valueOf(accentColor)
@@ -97,6 +100,7 @@ class CharacterScreen : AppCompatActivity() {
             }
         }
 
+        // Set "mother" button if character has mother in API
         if (character.mother != null && character.mother.id.isNotEmpty()) {
             tv_mother.visibility = View.VISIBLE
             tv_mother.compoundDrawableTintList = ColorStateList.valueOf(accentColor)
@@ -108,6 +112,7 @@ class CharacterScreen : AppCompatActivity() {
             }
         }
 
+        // Set "died" snackbar if character is dead in API
         if (character.died.isNotEmpty()) {
             Snackbar.make(
                 coordinator,

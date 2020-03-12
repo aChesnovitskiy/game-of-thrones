@@ -2,7 +2,7 @@ package ru.skillbranch.gameofthrones.utils.extensions
 
 fun String.toShortName(): String = this.split(" ").dropLastUntil { it == "of" }.last()
 
-fun List<String>.mergeWithDots(): String {
+fun List<String>.joinWithDots(): String {
     val stringBuilder = StringBuilder()
 
     for (string in this) {

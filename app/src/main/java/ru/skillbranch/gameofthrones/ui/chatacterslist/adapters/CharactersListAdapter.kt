@@ -11,7 +11,7 @@ import ru.skillbranch.gameofthrones.App
 import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterItem
 import ru.skillbranch.gameofthrones.utils.HouseUtils
-import ru.skillbranch.gameofthrones.utils.extensions.mergeWithDots
+import ru.skillbranch.gameofthrones.utils.extensions.joinWithDots
 
 /* Adapter for RecyclerView with characters */
 class CharactersListAdapter(val listener: (CharacterItem) -> Unit) :
@@ -63,7 +63,7 @@ class CharactersListAdapter(val listener: (CharacterItem) -> Unit) :
         fun bind(character: CharacterItem, listener: (CharacterItem) -> Unit) {
             val context = App.applicationContext()
             val name = character.name
-            val info = getTitlesAndAliases(character).mergeWithDots()
+            val info = getTitlesAndAliases(character).joinWithDots()
             val logo = HouseUtils.getLogo(character.house)
 
             tv_character_name.text = if (name.isNotEmpty()) name else

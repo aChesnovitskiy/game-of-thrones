@@ -32,6 +32,7 @@ class SplashScreen : AppCompatActivity() {
 
         setAnimation()
 
+        // Check network availability
         val isNetworkAvailable = checkNetworkAvailable()
         Log.d("My_", "isNetworkAvailable: $isNetworkAvailable")
 

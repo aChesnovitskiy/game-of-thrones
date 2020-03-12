@@ -6,6 +6,7 @@ import ru.skillbranch.gameofthrones.AppConfig.NEED_HOUSES
 import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.utils.extensions.toShortName
 
+/* Get color and drawable resources of need houses */
 object HouseUtils {
     private val resources = App.applicationResources()
     private val context = App.applicationContext()

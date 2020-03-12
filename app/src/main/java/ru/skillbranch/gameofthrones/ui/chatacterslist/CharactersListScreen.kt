@@ -1,6 +1,7 @@
 package ru.skillbranch.gameofthrones.ui.chatacterslist
 
 import android.graphics.Color
+import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -19,14 +20,7 @@ import ru.skillbranch.gameofthrones.utils.extensions.toShortName
 import kotlin.math.hypot
 import kotlin.math.max
 
-// TODO add comments ih whole project
-
-// TODO color of search karetka
-
 class CharactersListScreen : AppCompatActivity() {
-    companion object {
-        private const val ANIMATION_DURATION = 2000L
-    }
 
     private var houseColor = Color.WHITE
 
@@ -65,32 +59,41 @@ class CharactersListScreen : AppCompatActivity() {
     }
 
     private fun getTabCoordinateX(position: Int): Int {
-        val tab = (tab_layout_houses.getChildAt(0) as ViewGroup).getChildAt(position)
-        val coordinates = intArrayOf(0, 0)
-        tab.getLocationInWindow(coordinates)
-        return coordinates[0]
+        // Variant from Skill-Branch summary
+        val rect = Rect()
+        val tab = tab_layout_houses.getTabAt(position)?.view as View
+        tab.getGlobalVisibleRect(rect)
+        return rect.centerX()
+
+        // My variant - problems:
+        // 1) Get beginning of tab, not center
+        // 2) Sometimes cause wrong radius calculation
+//        val tab = (tab_layout_houses.getChildAt(0) as ViewGroup).getChildAt(position)
+//        val coordinates = intArrayOf(0, 0)
+//        tab.getLocationInWindow(coordinates)
+//        return coordinates[0]
     }
 
     private fun setHeaderAnimation(centerX: Int) {
         val centerY = app_bar.height
         val endRadius = radiusCalculation(centerX)
 
-        val revealAnimation =
-            ViewAnimationUtils.createCircularReveal(view_reveal,
-                    centerX, centerY, 0F, endRadius)
-                .apply {
-                    duration = ANIMATION_DURATION
-                    interpolator = DecelerateInterpolator()
-                    doOnEnd {
-                        view_reveal.visibility = View.INVISIBLE
-                        app_bar.setBackgroundColor(houseColor)
-                    }
+        view_reveal.apply {
+            setBackgroundColor(houseColor)
+            view_reveal.visibility = View.VISIBLE
+        }
+
+        ViewAnimationUtils.createCircularReveal(
+            view_reveal,
+            centerX, centerY, 0F, endRadius
+        )
+            .apply {
+                interpolator = DecelerateInterpolator()
+                doOnEnd {
+                    view_reveal.visibility = View.INVISIBLE
+                    app_bar.setBackgroundColor(houseColor)
                 }
-
-        view_reveal.setBackgroundColor(houseColor)
-        view_reveal.visibility = View.VISIBLE
-
-        revealAnimation.start()
+            }.start()
     }
 
     private fun radiusCalculation(centerX: Int): Float {
