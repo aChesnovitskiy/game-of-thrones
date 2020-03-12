@@ -5,8 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewAnimationUtils
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
+import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import androidx.core.animation.doOnEnd
 import androidx.viewpager2.widget.ViewPager2
@@ -17,6 +16,8 @@ import ru.skillbranch.gameofthrones.R
 import ru.skillbranch.gameofthrones.ui.chatacterslist.adapters.CharactersListFragmentAdapter
 import ru.skillbranch.gameofthrones.utils.HouseUtils
 import ru.skillbranch.gameofthrones.utils.extensions.toShortName
+import kotlin.math.hypot
+import kotlin.math.max
 
 // TODO add comments ih whole project
 
@@ -24,7 +25,7 @@ import ru.skillbranch.gameofthrones.utils.extensions.toShortName
 
 class CharactersListScreen : AppCompatActivity() {
     companion object {
-        private const val ANIMATION_DURATION = 500L
+        private const val ANIMATION_DURATION = 2000L
     }
 
     private var houseColor = Color.WHITE
@@ -49,26 +50,34 @@ class CharactersListScreen : AppCompatActivity() {
             tab.text = NEED_HOUSES[position].toShortName()
         }.attach()
 
-        // Set header's color when change page
+        // Set header's color and animation when change page
         view_pager_list.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
 
                 houseColor = HouseUtils.getPrimaryColor(NEED_HOUSES[position].toShortName())
 
-                setHeaderAnimation()
+                val tabCoordinateX = getTabCoordinateX(position)
+
+                setHeaderAnimation(tabCoordinateX)
             }
         })
     }
 
-    private fun setHeaderAnimation() {
-        // TODO
-        val centerX = app_bar.width / 2
+    private fun getTabCoordinateX(position: Int): Int {
+        val tab = (tab_layout_houses.getChildAt(0) as ViewGroup).getChildAt(position)
+        val coordinates = intArrayOf(0, 0)
+        tab.getLocationInWindow(coordinates)
+        return coordinates[0]
+    }
+
+    private fun setHeaderAnimation(centerX: Int) {
         val centerY = app_bar.height
-        val endRadius = app_bar.width / 2F
+        val endRadius = radiusCalculation(centerX)
 
         val revealAnimation =
-            ViewAnimationUtils.createCircularReveal(view_reveal, centerX, centerY, 0F, endRadius)
+            ViewAnimationUtils.createCircularReveal(view_reveal,
+                    centerX, centerY, 0F, endRadius)
                 .apply {
                     duration = ANIMATION_DURATION
                     interpolator = DecelerateInterpolator()
@@ -82,5 +91,12 @@ class CharactersListScreen : AppCompatActivity() {
         view_reveal.visibility = View.VISIBLE
 
         revealAnimation.start()
+    }
+
+    private fun radiusCalculation(centerX: Int): Float {
+        val height = app_bar.height.toFloat()
+        val radiusLeft = hypot(centerX.toFloat(), height)
+        val radiusRight = hypot((app_bar.width - centerX).toFloat(), height)
+        return max(radiusLeft, radiusRight)
     }
 }
