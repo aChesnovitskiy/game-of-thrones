@@ -10,7 +10,10 @@ import ru.skillbranch.gameofthrones.data.remote.res.HouseRes
 
 interface ApiService {
     @GET("houses")
-    fun getHousesByPage(@Query("page") page: Int = 1, @Query("pageSize") pageSize: Int = 50): Observable<Response<List<HouseRes>>>
+    fun getHousesByPage(
+        @Query("page") page: Int = 1,
+        @Query("pageSize") pageSize: Int = 50
+    ): Observable<Response<List<HouseRes>>>
 
     @GET("houses")
     fun getHousesByName(@Query("name") name: String): Observable<List<HouseRes>>

@@ -33,10 +33,6 @@ object RootRepository {
     private val houseDao = database?.houseDao
     private val characterDao = database?.characterDao
 
-
-    // Copy all fun bodies and private funs from dmisuvorov github, cause need to go further
-    // TODO - understand (need to learn RxJava) and maybe change
-
     /**
      * Получение данных о всех домах из сети
      * @param result - колбек содержащий в себе список данных о домах
@@ -142,8 +138,8 @@ object RootRepository {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun insertHouses(houses: List<HouseRes>, complete: () -> Unit) {
         val disposable = Completable.fromAction {
-                houseDao?.insertHouses(houses.map { it.toHouse() })
-            }
+            houseDao?.insertHouses(houses.map { it.toHouse() })
+        }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -164,7 +160,7 @@ object RootRepository {
 //                for (char in characters.map { it.toCharacter() }) {
 //                    Log.d("M_RootRepository", char.toString())
 //                }
-            }
+        }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -179,8 +175,8 @@ object RootRepository {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun dropDb(complete: () -> Unit) {
         val disposable = Completable.fromAction {
-                database?.clearAllTables()
-            }
+            database?.clearAllTables()
+        }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -259,9 +255,11 @@ object RootRepository {
      * @param result - колбек о завершении очистки db
      */
     fun isNeedUpdate(result: (isNeed: Boolean) -> Unit) {
-        val disposable = Single.zip(houseDao?.getCountEntity(),
-                characterDao?.getCountEntity(),
-                BiFunction { countHouses: Int, countCharacters: Int -> countHouses + countCharacters })
+        val disposable = Single.zip(
+            houseDao?.getCountEntity(),
+            characterDao?.getCountEntity(),
+            BiFunction { countHouses: Int, countCharacters: Int -> countHouses + countCharacters }
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

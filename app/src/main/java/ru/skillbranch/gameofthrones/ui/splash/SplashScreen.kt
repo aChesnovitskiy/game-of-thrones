@@ -36,7 +36,6 @@ class SplashScreen : AppCompatActivity() {
         val isNetworkAvailable = checkNetworkAvailable()
         Log.d("My_", "isNetworkAvailable: $isNetworkAvailable")
 
-
         // Working with DB
         RootRepository.isNeedUpdate { isNeedUpdate ->
             Log.d("My_", "isNeedUpdate: $isNeedUpdate")
